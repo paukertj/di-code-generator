@@ -1,8 +1,6 @@
 ﻿using DiDemo.Generator.Generator.Enums;
 using DiDemo.Generator.Generator.Extensions;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace DiDemo.Generator.Generator.Models
 {

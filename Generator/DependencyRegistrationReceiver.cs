@@ -19,20 +19,8 @@ namespace DiDemo.Generator.Generator
         {
             //Debugger.Launch();
 
-            // TODO: Here I'll have to handle the order (ctor could be before service registration itself?)
             FindServices(syntaxNode);
-            //BuildRelationships(syntaxNode);
         }
-
-        //private void BuildRelationships(SyntaxNode syntaxNode)
-        //{
-        //    var constructors = syntaxNode.DescendantNodes().OfType<ConstructorDeclarationSyntax>().ToList();
-
-        //    foreach (var constructor in constructors)
-        //    {
-        //        Services.AddRelationship(constructor);
-        //    }
-        //}
 
         private void FindServices(SyntaxNode syntaxNode)
         {

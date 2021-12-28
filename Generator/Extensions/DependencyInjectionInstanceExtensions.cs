@@ -14,14 +14,7 @@ namespace DiDemo.Generator.Generator.Extensions
         internal static void AddNewService(this List<DependencyInjectionInstance> map, MemberAccessExpressionSyntax memberAccessExpressionSyntax, ServiceLifetime serviceLifetime)
         {
             var args = (memberAccessExpressionSyntax.Name as GenericNameSyntax)?.TypeArgumentList?.Arguments
-                        //.OfType<IdentifierNameSyntax>()
-                        //.Select(a => a.Identifier.ValueText)
                         .ToList();
-
-            //var test = ((memberAccessExpressionSyntax.Name as GenericNameSyntax).TypeArgumentList.Arguments[0] as IdentifierNameSyntax)
-            //    .Ancestors()
-            //    .OfType<NamespaceDeclarationSyntax>()
-            //    .ToList();
 
             if (args.Count != 2)
             {
@@ -32,25 +25,6 @@ namespace DiDemo.Generator.Generator.Extensions
 
             map.Add(service);
         }
-
-        //internal static void AddRelationship(this Dictionary<DependencyInjectionInstance, List<string>> map, ConstructorDeclarationSyntax constructorDeclarationSyntax)
-        //{
-        //    // This is very naive
-        //    var implementation = constructorDeclarationSyntax.Identifier.ValueText;
-        //    var relationships = constructorDeclarationSyntax.ParameterList.Parameters
-        //        .Select(p => p.Type as IdentifierNameSyntax)
-        //        .Select(s => s.Identifier.ValueText);
-
-        //    //var services = map.SingleOrDefault(m => m.Key.Implementation == implementation).Value;
-
-        //    //if (services == null)
-        //    //{
-        //    //    return;
-        //    //}
-
-        //    //// Here should be some distinct
-        //    //services.AddRange(relationships);
-        //}
 
         internal static DependencyInjectionGeneratedCodeInstance ToGeneratedCodeInstance(
             this DependencyInjectionInstance instance,

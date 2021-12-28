@@ -1,5 +1,4 @@
 ﻿using DiDemo.Generator.Generator.Enums;
-using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace DiDemo.Generator.Generator.Models

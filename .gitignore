@@ -1,0 +1,11 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/DiDemo/bin
+/DiDemo/obj
+/.vs/DiDemo
+/Generator/bin
+/Generator/obj
+/Primitives/bin
+/Primitives/obj

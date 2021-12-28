@@ -2,9 +2,7 @@
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Linq;
 using System.Collections.Generic;
-using DiDemo.Generator.Primitives.Extensions;
 using DiDemo.Generator.Generator.Extensions;
-using DiDemo.Generator.Generator.Enums;
 using DiDemo.Generator.Generator.Models.Analysis;
 
 namespace DiDemo.Generator.Generator
@@ -43,17 +41,9 @@ namespace DiDemo.Generator.Generator
                     continue;
                 }
 
-                if (method == nameof(ServiceCollectionExtensions.AddGeneratedSingleton))
+                if (method.TryConvertToServiceLifetime(out var serviceLifetime))
                 {
-                    Services.AddNewService(memberAccessExpressionSyntax, ServiceLifetime.Singleton);
-                }
-                else if (method == nameof(ServiceCollectionExtensions.AddGeneratedScoped))
-                {
-                    Services.AddNewService(memberAccessExpressionSyntax, ServiceLifetime.Scoped);
-                }
-                else if (method == nameof(ServiceCollectionExtensions.AddGeneratedTransient))
-                {
-                    Services.AddNewService(memberAccessExpressionSyntax, ServiceLifetime.Transient);
+                    Services.AddNewService(memberAccessExpressionSyntax, serviceLifetime);
                 }
             }
         }

@@ -17,21 +17,10 @@ namespace DiDemo.Generator.Generator.Extensions
             var namespaces = generatedCodeInstances
                 .SelectMany(i => i.GetAllNamespaces())
                 .Distinct();
-            //var implementationNamespaces = generatedCodeInstances
-            //    .Select(i => i.Implementation.Namespace)
-            //    .ToList();
-            //var referencesNamespaces = generatedCodeInstances
-            //    .SelectMany(i => i.References)
-            //    .Select(i => i.Service.Namespace)
-            //    .ToList();
-
-            //var namespaces = new List<string>(serviceNamespaces.Count + implementationNamespaces.Count);
-            //namespaces.AddRange(serviceNamespaces);
-            //namespaces.AddRange(implementationNamespaces);
 
             var sb = new StringBuilder(1024);
 
-            foreach (var ns in namespaces/*.Distinct()*/)
+            foreach (var ns in namespaces)
             {
                 sb.AppendLine($"using {ns};");
             }

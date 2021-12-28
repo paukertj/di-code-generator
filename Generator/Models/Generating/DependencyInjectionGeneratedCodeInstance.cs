@@ -2,7 +2,7 @@
 using DiDemo.Generator.Generator.Extensions;
 using System.Collections.Generic;
 
-namespace DiDemo.Generator.Generator.Models
+namespace DiDemo.Generator.Generator.Models.Generating
 {
     internal class DependencyInjectionGeneratedCodeInstance
     {
@@ -13,16 +13,16 @@ namespace DiDemo.Generator.Generator.Models
         internal IReadOnlyList<ReferenceGeneratedCodeInstance> References { get; }
 
         internal DependencyInjectionGeneratedCodeInstance(
-            TypeGeneratedCodeInstance service, 
-            TypeGeneratedCodeInstance implementation, 
+            TypeGeneratedCodeInstance service,
+            TypeGeneratedCodeInstance implementation,
             ServiceLifetime serviceLifetime) : this(service, implementation, serviceLifetime, null)
         {
         }
 
         internal DependencyInjectionGeneratedCodeInstance(
-            TypeGeneratedCodeInstance service, 
-            TypeGeneratedCodeInstance implementation, 
-            ServiceLifetime serviceLifetime, 
+            TypeGeneratedCodeInstance service,
+            TypeGeneratedCodeInstance implementation,
+            ServiceLifetime serviceLifetime,
             IReadOnlyList<ReferenceGeneratedCodeInstance> references)
         {
             Service = service;

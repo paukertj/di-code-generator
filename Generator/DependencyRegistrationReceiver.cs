@@ -3,11 +3,11 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
 using System.Diagnostics;
 using System.Linq;
-using DiDemo.Generator.Generator.Models;
 using System.Collections.Generic;
 using DiDemo.Generator.Primitives.Extensions;
 using DiDemo.Generator.Generator.Extensions;
 using DiDemo.Generator.Generator.Enums;
+using DiDemo.Generator.Generator.Models.Analysis;
 
 namespace DiDemo.Generator.Generator
 {

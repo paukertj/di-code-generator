@@ -1,11 +1,11 @@
 ﻿using DiDemo.Generator.Generator.Enums;
 
-namespace DiDemo.Generator.Generator.Models
+namespace DiDemo.Generator.Generator.Models.Generating
 {
     internal class ReferenceGeneratedCodeInstance
     {
         internal TypeGeneratedCodeInstance Service { get; }
-        internal ServiceLifetime ServiceLifetime { get; set;  } /// TODO - useless
+        internal ServiceLifetime ServiceLifetime { get; set; } /// TODO - useless
 
         internal ReferenceGeneratedCodeInstance(TypeGeneratedCodeInstance service)
         {

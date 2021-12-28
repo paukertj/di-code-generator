@@ -1,4 +1,5 @@
-﻿using DiDemo.Generator.Generator.Models;
+﻿using DiDemo.Generator.Generator.Models.Analysis;
+using DiDemo.Generator.Generator.Models.Generating;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Collections.Generic;

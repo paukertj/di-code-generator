@@ -1,7 +1,7 @@
 ﻿using DiDemo.Generator.Generator.Enums;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-namespace DiDemo.Generator.Generator.Models
+namespace DiDemo.Generator.Generator.Models.Analysis
 {
     internal class DependencyInjectionInstance
     {

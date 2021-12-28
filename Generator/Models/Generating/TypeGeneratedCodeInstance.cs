@@ -1,13 +1,13 @@
 ﻿using Microsoft.CodeAnalysis;
 using System;
 
-namespace DiDemo.Generator.Generator.Models
+namespace DiDemo.Generator.Generator.Models.Generating
 {
     internal class TypeGeneratedCodeInstance
     {
         internal string Namespace { get; }
         internal string TypeName { get; }
-   
+
         internal TypeGeneratedCodeInstance(ITypeSymbol typeSymbol)
         {
             if (typeSymbol == null)

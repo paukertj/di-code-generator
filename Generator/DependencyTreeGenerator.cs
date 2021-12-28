@@ -1,7 +1,7 @@
 ﻿using DiDemo.Generator.Generator.Extensions;
 using Microsoft.CodeAnalysis;
-using DiDemo.Generator.Generator.Models;
 using System.Collections.Generic;
+using DiDemo.Generator.Generator.Models.Generating;
 
 namespace DiDemo.Generator.Generator
 {

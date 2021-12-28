@@ -1,6 +1,7 @@
 ﻿using DiDemo.Generator.Generator.Enums;
 using DiDemo.Generator.Generator.Extensions;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DiDemo.Generator.Generator.Models.Generating
 {
@@ -39,6 +40,25 @@ namespace DiDemo.Generator.Generator.Models.Generating
         internal TypeGeneratedCodeInstance GetImplementation()
         {
             return Implementation ?? Service;
+        }
+
+        internal IEnumerable<string> GetAllNamespaces()
+        {
+            var namespaces = new List<string>();
+
+            namespaces.AddIfNotEmpty(Service?.Namespace);
+            namespaces.AddIfNotEmpty(Implementation?.Namespace);
+
+            if (References != null)
+            {
+                foreach (var reference in References)
+                {
+                    namespaces.AddIfNotEmpty(reference?.Service?.Namespace);
+                }
+            }
+
+            return namespaces
+                .Distinct();
         }
 
         internal string ToSourceCode()

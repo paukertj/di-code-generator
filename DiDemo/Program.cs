@@ -16,7 +16,8 @@ namespace DiDemo
         {
             var serviceCollection = new ServiceCollection()
                 .AddGeneratedTransient<ITransient, Transient>()
-                .AddGeneratedScoped<IScoped, Scoped>()
+                //.AddGeneratedScoped<IScoped, Scoped>()
+                .AddScoped<IScoped, Scoped>()
                 .AddGeneratedSingleton<ISingleton, Singleton>()
                 .BuildGenerated();
 

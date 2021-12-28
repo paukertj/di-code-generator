@@ -1,4 +1,5 @@
 ﻿using DiDemo.Generator.Generator.Enums;
+using System.Collections.Generic;
 
 namespace DiDemo.Generator.Generator.Models.Generating
 {

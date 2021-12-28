@@ -14,20 +14,24 @@ namespace DiDemo.Generator.Generator.Extensions
                 return string.Empty;
             }
 
-            var serviceNamespaces = generatedCodeInstances
-                .Select(i => i.Service.Namespace)
-                .ToList();
-            var implementationNamespaces = generatedCodeInstances
-                .Select(i => i.Implementation.Namespace)
-                .ToList();
+            var namespaces = generatedCodeInstances
+                .SelectMany(i => i.GetAllNamespaces())
+                .Distinct();
+            //var implementationNamespaces = generatedCodeInstances
+            //    .Select(i => i.Implementation.Namespace)
+            //    .ToList();
+            //var referencesNamespaces = generatedCodeInstances
+            //    .SelectMany(i => i.References)
+            //    .Select(i => i.Service.Namespace)
+            //    .ToList();
 
-            var namespaces = new List<string>(serviceNamespaces.Count + implementationNamespaces.Count);
-            namespaces.AddRange(serviceNamespaces);
-            namespaces.AddRange(implementationNamespaces);
+            //var namespaces = new List<string>(serviceNamespaces.Count + implementationNamespaces.Count);
+            //namespaces.AddRange(serviceNamespaces);
+            //namespaces.AddRange(implementationNamespaces);
 
             var sb = new StringBuilder(1024);
 
-            foreach (var ns in namespaces.Distinct())
+            foreach (var ns in namespaces/*.Distinct()*/)
             {
                 sb.AppendLine($"using {ns};");
             }
@@ -70,7 +74,7 @@ namespace DiDemo.Generator.Generator.Extensions
                 return code;
             }
 
-            string prefix = "\t".Copy(tab);
+            string prefix = "    ".Copy(tab);
 
             var lines = code.Split('\r');
 

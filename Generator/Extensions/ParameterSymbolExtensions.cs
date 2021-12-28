@@ -1,9 +1,5 @@
-﻿using DiDemo.Generator.Generator.Models;
-using DiDemo.Generator.Generator.Models.Generating;
+﻿using DiDemo.Generator.Generator.Models.Generating;
 using Microsoft.CodeAnalysis;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DiDemo.Generator.Generator.Extensions
 {

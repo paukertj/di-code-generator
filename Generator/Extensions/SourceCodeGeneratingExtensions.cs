@@ -1,5 +1,4 @@
 ﻿using DiDemo.Generator.Generator.Models.Generating;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -62,6 +61,68 @@ namespace DiDemo.Generator.Generator.Extensions
             }
 
             return sb.ToString();
+        }
+
+        internal static string Tab(this string code, uint tab)
+        {
+            if (string.IsNullOrEmpty(code))
+            {
+                return code;
+            }
+
+            string prefix = "\t".Copy(tab);
+
+            var lines = code.Split('\r');
+
+            if (lines.Length <= 0)
+            {
+                return prefix + code.Trim();
+            }
+
+            var sb = new StringBuilder(1024);
+
+            foreach (var line in lines)
+            {
+                if (string.IsNullOrWhiteSpace(line))
+                {
+                    continue;
+                }
+
+                sb.AppendLine(prefix + line.ForceTrim());
+            }
+
+            return sb
+                .ToString()
+                .TrimEnd('\r', '\n');
+        }
+
+        internal static string SpaceTrim(this string s)
+        {
+            return s?.Trim('\t', ' ');
+        }
+
+        internal static string ForceTrim(this string s)
+        {
+            return s?
+                .Trim('\r', '\n')?
+                .SpaceTrim();
+        }
+
+        internal static string Copy(this string s, uint count)
+        {
+            if (string.IsNullOrEmpty(s))
+            {
+                return s;
+            }
+
+            string output = string.Empty;
+
+            for (int i = 0; i < count; i++)
+            {
+                output += s;
+            }
+
+            return output;
         }
     }
 }

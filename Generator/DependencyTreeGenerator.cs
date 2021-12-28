@@ -2,6 +2,7 @@
 using Microsoft.CodeAnalysis;
 using System.Collections.Generic;
 using DiDemo.Generator.Generator.Models.Generating;
+using System.Diagnostics;
 
 namespace DiDemo.Generator.Generator
 {
@@ -18,17 +19,20 @@ namespace DiDemo.Generator.Generator
 
             foreach (var service in syntaxReceiver.Services)
             {
-                var serviceRegistrationSource = service.ToGeneratedCodeInstance(context, syntaxReceiver.Services); // O(n^2)
+                var serviceRegistrationSource = service.ToGeneratedCodeInstance(context);
                 serviceRegistrationSources.Add(serviceRegistrationSource);
             }
 
             // Find the main method
             var mainMethod = context.Compilation.GetEntryPoint(context.CancellationToken);
 
-            var namespaces = serviceRegistrationSources.GetSourceCodeForNamespaces();
-            var maps = serviceRegistrationSources.GetSourceCodeForMaps();
+            var namespaces = serviceRegistrationSources
+                .GetSourceCodeForNamespaces()
+                .ForceTrim();
+            var maps = serviceRegistrationSources
+                .GetSourceCodeForMaps()
+                .Tab(3);
 
-            // build up the source code
             string source = $@"
 using System;
 using Microsoft.Extensions.DependencyInjection;
@@ -36,15 +40,18 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace {mainMethod.ContainingNamespace.ToDisplayString()}
 {{
+    /// <summary>
+    /// Automatically generated
+    /// </summary>
     internal static partial class GeneratedBuilder
     {{
         static partial void BuildGeneratedInternal(IServiceCollection serviceCollection)
         {{
-            {maps}
+{maps}
         }}
     }}
 }}
-";
+".ForceTrim();
 
             context.AddSource($"GeneratedBuilder_Generated.cs", source);
         }

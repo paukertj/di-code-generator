@@ -29,8 +29,7 @@ namespace DiDemo.Generator.Generator.Extensions
 
         internal static DependencyInjectionGeneratedCodeInstance ToGeneratedCodeInstance(
             this DependencyInjectionInstance instance,
-            GeneratorExecutionContext context,
-            IReadOnlyList<DependencyInjectionInstance> services)
+            GeneratorExecutionContext context)
         {
             if (instance == null)
             {
@@ -40,7 +39,7 @@ namespace DiDemo.Generator.Generator.Extensions
             var service = instance.Service?.ToGeneratedCodeInstance(context);
             var implementation = instance.Implementation?.ToGeneratedCodeInstance(context);
 
-            var references = instance.Implementation.GetReferenceGeneratedCodeInstance(context, services);
+            var references = instance.Implementation.GetReferenceGeneratedCodeInstance(context);
 
             return new DependencyInjectionGeneratedCodeInstance(service, implementation, instance.ServiceLifetime, references);
         }

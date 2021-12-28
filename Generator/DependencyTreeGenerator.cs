@@ -3,6 +3,10 @@ using Microsoft.CodeAnalysis;
 using System;
 using System.Diagnostics;
 using System.Text;
+using System.Linq;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using DiDemo.Generator.Generator.Models;
+using System.Collections.Generic;
 
 namespace DiDemo.Generator.Generator
 {
@@ -13,25 +17,27 @@ namespace DiDemo.Generator.Generator
         {
             //Debugger.Launch();
 
-            var receiver = (DependencyRegistrationReceiver)context.SyntaxReceiver;
+            var syntaxReceiver = (DependencyRegistrationReceiver)context.SyntaxReceiver;
 
-            // find the main method
+            var serviceRegistrationSources = new List<DependencyInjectionGeneratedCodeInstance>(syntaxReceiver.Services.Count);
+
+            foreach (var service in syntaxReceiver.Services)
+            {
+                var serviceRegistrationSource = service.ToGeneratedCodeInstance(context, syntaxReceiver.Services); // O(n^2)
+                serviceRegistrationSources.Add(serviceRegistrationSource);
+            }
+
+            // Find the main method
             var mainMethod = context.Compilation.GetEntryPoint(context.CancellationToken);
 
-            var sb = new StringBuilder(1024);
-
-            foreach (var service in receiver.Services)
-            {
-                sb.AppendRecord(service, receiver.Services); // O(n^2)
-            }
+            var namespaces = serviceRegistrationSources.GetSourceCodeForNamespaces();
+            var maps = serviceRegistrationSources.GetSourceCodeForMaps();
 
             // build up the source code
             string source = $@"
 using System;
 using Microsoft.Extensions.DependencyInjection;
-using DiDemo.Types.Singleton; // TODO
-using DiDemo.Types.Transient; // TODO
-using DiDemo.Types.Scoped; // TODO
+{namespaces}
 
 namespace {mainMethod.ContainingNamespace.ToDisplayString()}
 {{
@@ -39,7 +45,7 @@ namespace {mainMethod.ContainingNamespace.ToDisplayString()}
     {{
         static partial void BuildGeneratedInternal(IServiceCollection serviceCollection)
         {{
-            {sb.ToString()}
+            {maps}
         }}
     }}
 }}

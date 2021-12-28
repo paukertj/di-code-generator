@@ -1,35 +1,27 @@
 ﻿using DiDemo.Generator.Generator.Enums;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace DiDemo.Generator.Generator.Models
 {
     internal class DependencyInjectionInstance
     {
-        internal string Implementation { get; }
-
-        internal string Service { get; }
-
+        internal TypeSyntax Implementation { get; }
+        internal TypeSyntax Service { get; }
         internal ServiceLifetime ServiceLifetime { get; }
+        internal MemberAccessExpressionSyntax MemberAccessExpressionSyntax { get; }
 
-        internal DependencyInjectionInstance(string implementation, string service, ServiceLifetime serviceLifetime)
+        internal DependencyInjectionInstance(TypeSyntax implementation, TypeSyntax service, ServiceLifetime serviceLifetime, MemberAccessExpressionSyntax memberAccessExpressionSyntax)
         {
             Implementation = implementation;
             Service = service;
             ServiceLifetime = serviceLifetime;
+            MemberAccessExpressionSyntax = memberAccessExpressionSyntax;
         }
 
-        public override bool Equals(object obj)
+        internal TypeSyntax GetService()
         {
-            if (obj is not DependencyInjectionInstance dependencyInjectionInstance)
-            {
-                return false;
-            }
-
-            return dependencyInjectionInstance.Service == Service;
-        }
-
-        public override int GetHashCode()
-        {
-            return 0;
+            return Service ?? Implementation;
         }
     }
 }

@@ -9,28 +9,39 @@ namespace DiDemo.Generator.Generator.Extensions
     {
         internal static void AppendRecord(this StringBuilder sb, KeyValuePair<DependencyInjectionInstance, List<string>> data, Dictionary<DependencyInjectionInstance, List<string>> map)
         {
-            if (data.Key == null || sb == null)
-            {
-                return;
-            }
+            //if (data.Key == null || sb == null)
+            //{
+            //    return;
+            //}
 
-            string sParams = string.Empty;
+            //string sParams = string.Empty;
            
-            if (data.Value != null)
+            //if (data.Value != null)
+            //{
+            //    foreach (var relationship in data.Value.Distinct())
+            //    {
+            //        var r = map.SingleOrDefault(r => r.Key.Service == relationship);
+
+            //        sParams += $"p.GetRequiredService<{r.Key.Service}>(), ";
+            //    }
+
+            //    sParams = sParams.Trim().TrimEnd(',');
+            //}
+
+            //string s = $"serviceCollection.Add(new ServiceDescriptor(typeof({data.Key.Service}), (p) => new {data.Key.Implementation}({sParams}), ServiceLifetime.{data.Key.ServiceLifetime}));";
+
+            //sb.AppendLine(s);
+        }
+
+        internal static string ToSourceCode(this IReadOnlyList<ReferenceGeneratedCodeInstance> instances)
+        {
+            if (instances == null)
             {
-                foreach (var relationship in data.Value.Distinct())
-                {
-                    var r = map.SingleOrDefault(r => r.Key.Service == relationship);
-
-                    sParams += $"p.GetRequiredService<{r.Key.Service}>(), ";
-                }
-
-                sParams = sParams.Trim().TrimEnd(',');
+                return string.Empty;
             }
 
-            string s = $"serviceCollection.Add(new ServiceDescriptor(typeof({data.Key.Service}), (p) => new {data.Key.Implementation}({sParams}), ServiceLifetime.{data.Key.ServiceLifetime}));";
-
-            sb.AppendLine(s);
+            var e = instances.Select(i => i.ToSourceCode());
+            return string.Join(", ", e);
         }
     }
 }

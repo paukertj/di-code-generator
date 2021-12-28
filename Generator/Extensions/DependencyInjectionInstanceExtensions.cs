@@ -3,60 +3,116 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Collections.Generic;
 using System.Linq;
 using DiDemo.Generator.Generator.Enums;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.FindSymbols;
+using System.Text;
 
 namespace DiDemo.Generator.Generator.Extensions
 {
     internal static class DependencyInjectionInstanceExtensions
     {
-        internal static void AddNewService(this Dictionary<DependencyInjectionInstance, List<string>> map, MemberAccessExpressionSyntax memberAccessExpressionSyntax, ServiceLifetime serviceLifetime)
+        internal static void AddNewService(this List<DependencyInjectionInstance> map, MemberAccessExpressionSyntax memberAccessExpressionSyntax, ServiceLifetime serviceLifetime)
         {
             var args = (memberAccessExpressionSyntax.Name as GenericNameSyntax)?.TypeArgumentList?.Arguments
-                        .OfType<IdentifierNameSyntax>()
-                        .Select(a => a.Identifier.ValueText)
+                        //.OfType<IdentifierNameSyntax>()
+                        //.Select(a => a.Identifier.ValueText)
                         .ToList();
+
+            //var test = ((memberAccessExpressionSyntax.Name as GenericNameSyntax).TypeArgumentList.Arguments[0] as IdentifierNameSyntax)
+            //    .Ancestors()
+            //    .OfType<NamespaceDeclarationSyntax>()
+            //    .ToList();
 
             if (args.Count != 2)
             {
                 return;
             }
 
-            var service = new DependencyInjectionInstance(args[1], args[0], serviceLifetime);
+            var service = new DependencyInjectionInstance(args[1], args[0], serviceLifetime, memberAccessExpressionSyntax);
 
-            map.AddNewService(service);
+            map.Add(service);
         }
 
-        internal static void AddNewService(this Dictionary<DependencyInjectionInstance, List<string>> map, DependencyInjectionInstance service)
+        //internal static void AddRelationship(this Dictionary<DependencyInjectionInstance, List<string>> map, ConstructorDeclarationSyntax constructorDeclarationSyntax)
+        //{
+        //    // This is very naive
+        //    var implementation = constructorDeclarationSyntax.Identifier.ValueText;
+        //    var relationships = constructorDeclarationSyntax.ParameterList.Parameters
+        //        .Select(p => p.Type as IdentifierNameSyntax)
+        //        .Select(s => s.Identifier.ValueText);
+
+        //    //var services = map.SingleOrDefault(m => m.Key.Implementation == implementation).Value;
+
+        //    //if (services == null)
+        //    //{
+        //    //    return;
+        //    //}
+
+        //    //// Here should be some distinct
+        //    //services.AddRange(relationships);
+        //}
+
+        internal static DependencyInjectionGeneratedCodeInstance ToGeneratedCodeInstance(
+            this DependencyInjectionInstance instance,
+            GeneratorExecutionContext context,
+            IReadOnlyList<DependencyInjectionInstance> services)
         {
-            if (map == null)
+            if (instance == null)
             {
-                return;
+                return null;
             }
 
-            if (map.ContainsKey(service))
-            {
-                return;
-            }
+            var service = instance.Service?.ToGeneratedCodeInstance(context);
+            var implementation = instance.Implementation?.ToGeneratedCodeInstance(context);
 
-            map.Add(service, new List<string>());
+            var references = instance.Implementation.GetReferenceGeneratedCodeInstance(context, services);
+
+            return new DependencyInjectionGeneratedCodeInstance(service, implementation, instance.ServiceLifetime, references);
         }
 
-        internal static void AddRelationship(this Dictionary<DependencyInjectionInstance, List<string>> map, ConstructorDeclarationSyntax constructorDeclarationSyntax)
+        internal static string GetSourceCodeForNamespaces(this List<DependencyInjectionGeneratedCodeInstance> generatedCodeInstances)
         {
-            // This is very naive
-            var implementation = constructorDeclarationSyntax.Identifier.ValueText;
-            var relationships = constructorDeclarationSyntax.ParameterList.Parameters
-                .Select(p => p.Type as IdentifierNameSyntax)
-                .Select(s => s.Identifier.ValueText);
-        
-            var services = map.SingleOrDefault(m => m.Key.Implementation == implementation).Value;
-
-            if (services == null)
+            if (generatedCodeInstances == null)
             {
-                return;
+                return string.Empty;
             }
 
-            // Here should be some distinct
-            services.AddRange(relationships);
+            var serviceNamespaces = generatedCodeInstances
+                .Select(i => i.Service.Namespace)
+                .ToList();
+            var implementationNamespaces = generatedCodeInstances
+                .Select(i => i.Implementation.Namespace)
+                .ToList();
+
+            var namespaces = new List<string>(serviceNamespaces.Count + implementationNamespaces.Count);
+            namespaces.AddRange(serviceNamespaces);
+            namespaces.AddRange(implementationNamespaces);
+
+            var sb = new StringBuilder(1024);
+
+            foreach (var ns in namespaces.Distinct())
+            {
+                sb.AppendLine($"using {ns};");
+            }
+
+            return sb.ToString();
+        }
+
+        internal static string GetSourceCodeForMaps(this List<DependencyInjectionGeneratedCodeInstance> generatedCodeInstances)
+        {
+            if (generatedCodeInstances == null)
+            {
+                return string.Empty;
+            }
+
+            var sb = new StringBuilder(2048);
+
+            foreach (var generatedCodeInstance in generatedCodeInstances)
+            {
+                sb.AppendLine(generatedCodeInstance.ToSourceCode());
+            }
+
+            return sb.ToString();
         }
     }
 }

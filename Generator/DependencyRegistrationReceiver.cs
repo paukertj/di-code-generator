@@ -13,24 +13,26 @@ namespace DiDemo.Generator.Generator
 {
     internal class DependencyRegistrationReceiver : ISyntaxReceiver
     {
-        public Dictionary<DependencyInjectionInstance, List<string>> Services { get; } = new();
+        public List<DependencyInjectionInstance> Services { get; } = new();
 
         public void OnVisitSyntaxNode(SyntaxNode syntaxNode)
         {
+            //Debugger.Launch();
+
             // TODO: Here I'll have to handle the order (ctor could be before service registration itself?)
             FindServices(syntaxNode);
-            BuildRelationships(syntaxNode);
+            //BuildRelationships(syntaxNode);
         }
 
-        private void BuildRelationships(SyntaxNode syntaxNode)
-        {
-            var constructors = syntaxNode.DescendantNodes().OfType<ConstructorDeclarationSyntax>().ToList();
+        //private void BuildRelationships(SyntaxNode syntaxNode)
+        //{
+        //    var constructors = syntaxNode.DescendantNodes().OfType<ConstructorDeclarationSyntax>().ToList();
 
-            foreach (var constructor in constructors)
-            {
-                Services.AddRelationship(constructor);
-            }
-        }
+        //    foreach (var constructor in constructors)
+        //    {
+        //        Services.AddRelationship(constructor);
+        //    }
+        //}
 
         private void FindServices(SyntaxNode syntaxNode)
         {

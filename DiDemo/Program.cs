@@ -22,7 +22,7 @@ namespace DiDemo
 
             var provider = serviceCollection.BuildServiceProvider();
 
-            var transient = provider.GetService<ITransient>();
+            var transient = provider.GetRequiredService<ITransient>();
 
             Console.ReadLine();
         }

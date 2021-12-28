@@ -9,22 +9,29 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Generator", "Generator", "{
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Primitives", "Primitives\Primitives.csproj", "{F704F04B-49B3-4D74-91F0-8F50094FA050}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Generator", "Generator\Generator.csproj", "{C8548284-F1ED-439C-B1B9-234DC0933769}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Generator", "Generator\Generator.csproj", "{C8548284-F1ED-439C-B1B9-234DC0933769}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug_Generator|Any CPU = Debug_Generator|Any CPU
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{033ACA5E-E216-4F6C-8E19-61CBE0BB5386}.Debug_Generator|Any CPU.ActiveCfg = Debug|Any CPU
+		{033ACA5E-E216-4F6C-8E19-61CBE0BB5386}.Debug_Generator|Any CPU.Build.0 = Debug|Any CPU
 		{033ACA5E-E216-4F6C-8E19-61CBE0BB5386}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{033ACA5E-E216-4F6C-8E19-61CBE0BB5386}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{033ACA5E-E216-4F6C-8E19-61CBE0BB5386}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{033ACA5E-E216-4F6C-8E19-61CBE0BB5386}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F704F04B-49B3-4D74-91F0-8F50094FA050}.Debug_Generator|Any CPU.ActiveCfg = Debug|Any CPU
+		{F704F04B-49B3-4D74-91F0-8F50094FA050}.Debug_Generator|Any CPU.Build.0 = Debug|Any CPU
 		{F704F04B-49B3-4D74-91F0-8F50094FA050}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F704F04B-49B3-4D74-91F0-8F50094FA050}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F704F04B-49B3-4D74-91F0-8F50094FA050}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F704F04B-49B3-4D74-91F0-8F50094FA050}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8548284-F1ED-439C-B1B9-234DC0933769}.Debug_Generator|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8548284-F1ED-439C-B1B9-234DC0933769}.Debug_Generator|Any CPU.Build.0 = Debug|Any CPU
 		{C8548284-F1ED-439C-B1B9-234DC0933769}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C8548284-F1ED-439C-B1B9-234DC0933769}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C8548284-F1ED-439C-B1B9-234DC0933769}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -20,6 +20,8 @@ namespace DiDemo
             var provider = serviceCollection.BuildServiceProvider();
 
             var transient = provider.GetRequiredService<ITransient>();
+            var scoped = provider.GetRequiredService<IScoped>();
+            var singleton = provider.GetRequiredService<ISingleton>();
 
             Console.ReadLine();
         }

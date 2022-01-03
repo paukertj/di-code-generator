@@ -1,22 +1,27 @@
-﻿using DiDemo.Benchmarks.Data;
+﻿using BenchmarkDotNet.Attributes;
+using DiDemo.Benchmarks.Data;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 
 namespace DiDemo.Benchmarks.Benchmarks
 {
-    internal class ServiceCollectionBuild
+    public class ServiceCollectionBuild
     {
-        internal void ServiceCollectionBuildBenchmark()
+        [Benchmark]
+        public void ServiceCollectionBuildBenchmark()
         {
             var serviceCollection = new ServiceCollection()
                 .AddTransients()
                 .AddScopes()
                 .AddSingletons();
 
-            serviceCollection.BuildServiceProvider();
+            var provider = serviceCollection.BuildServiceProvider();
+
+            //SimpleConsistencyCheck(provider);
         }
 
-        internal void ServiceCollectionBuildGeneratedBenchmark()
+        [Benchmark]
+        public void ServiceCollectionBuildGeneratedBenchmark()
         {
             var serviceCollection = new ServiceCollection()
                 .AddTransientsGenerated()
@@ -24,7 +29,21 @@ namespace DiDemo.Benchmarks.Benchmarks
                 .AddSingletonsGenerated()
                 .BuildGenerated();
 
-            serviceCollection.BuildServiceProvider();
+            var provider = serviceCollection.BuildServiceProvider();
+
+            //SimpleConsistencyCheck(provider);
+        }
+
+        private void SimpleConsistencyCheck(IServiceProvider serviceProvider)
+        {
+            if (serviceProvider == null)
+            {
+                throw new ArgumentNullException(nameof(serviceProvider));
+            }
+
+            var transient = serviceProvider.GetRequiredService<ITransient0>();
+            var scoped = serviceProvider.GetRequiredService<IScoped0>();
+            var singleton = serviceProvider.GetRequiredService<ISingleton0>();
         }
     }
 }

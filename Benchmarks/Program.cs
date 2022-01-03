@@ -1,4 +1,5 @@
-﻿using DiDemo.Benchmarks.Benchmarks;
+﻿using BenchmarkDotNet.Running;
+using DiDemo.Benchmarks.Benchmarks;
 using System;
 
 namespace DiDemo.Benchmarks
@@ -7,12 +8,7 @@ namespace DiDemo.Benchmarks
     {
         public static void Main(string[] args)
         {
-            var serviceCollectionBuild = new ServiceCollectionBuild();
-
-            serviceCollectionBuild.ServiceCollectionBuildBenchmark();
-            serviceCollectionBuild.ServiceCollectionBuildGeneratedBenchmark();
-
-            Console.ReadLine();
+            var summary = BenchmarkRunner.Run<ServiceCollectionBuild>();
         }
     }
 }

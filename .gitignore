@@ -9,3 +9,5 @@
 /Generator/obj
 /Primitives/bin
 /Primitives/obj
+/Benchmarks/bin/Debug/net6.0
+/Benchmarks/obj

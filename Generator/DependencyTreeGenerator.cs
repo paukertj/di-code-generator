@@ -58,6 +58,9 @@ namespace {mainMethod.ContainingNamespace.ToDisplayString()}
 
         public void Initialize(GeneratorInitializationContext context)
         {
+#if Debug_Generator
+            Debugger.Launch();
+#endif
 
             context.RegisterForSyntaxNotifications(() => new DependencyRegistrationReceiver());
         }

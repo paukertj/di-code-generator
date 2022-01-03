@@ -1,10 +1,10 @@
 ﻿using BenchmarkDotNet.Attributes;
 using DiDemo.Benchmarks.Data;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 
 namespace DiDemo.Benchmarks.Benchmarks
 {
+    [RPlotExporter]
     public class ServiceCollectionBuild
     {
         [Benchmark]
@@ -17,7 +17,9 @@ namespace DiDemo.Benchmarks.Benchmarks
 
             var provider = serviceCollection.BuildServiceProvider();
 
-            //SimpleConsistencyCheck(provider);
+            provider.GetAllTransients();
+            provider.GetAllScopes();
+            provider.GetAllSingletons();
         }
 
         [Benchmark]
@@ -31,19 +33,9 @@ namespace DiDemo.Benchmarks.Benchmarks
 
             var provider = serviceCollection.BuildServiceProvider();
 
-            //SimpleConsistencyCheck(provider);
-        }
-
-        private void SimpleConsistencyCheck(IServiceProvider serviceProvider)
-        {
-            if (serviceProvider == null)
-            {
-                throw new ArgumentNullException(nameof(serviceProvider));
-            }
-
-            var transient = serviceProvider.GetRequiredService<ITransient0>();
-            var scoped = serviceProvider.GetRequiredService<IScoped0>();
-            var singleton = serviceProvider.GetRequiredService<ISingleton0>();
+            provider.GetAllTransients();
+            provider.GetAllScopes();
+            provider.GetAllSingletons();
         }
     }
 }

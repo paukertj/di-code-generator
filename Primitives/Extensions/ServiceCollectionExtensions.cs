@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System;
 
-namespace DiDemo.Generator.Primitives.Extensions
+namespace DiCodeGenerator.Generator.Primitives.Extensions
 {
     public static partial class ServiceCollectionExtensions
     {

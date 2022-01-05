@@ -1,9 +1,9 @@
-﻿using DiDemo.Generator.Generator.Enums;
-using DiDemo.Generator.Generator.Extensions;
+﻿using DiCodeGenerator.Generator.Enums;
+using DiCodeGenerator.Generator.Extensions;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DiDemo.Generator.Generator.Models.Generating
+namespace DiCodeGenerator.Generator.Models.Generating
 {
     internal class DependencyInjectionGeneratedCodeInstance
     {

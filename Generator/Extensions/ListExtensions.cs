@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DiDemo.Generator.Generator.Extensions
+namespace DiCodeGenerator.Generator.Extensions
 {
     internal static class ListExtensions
     {

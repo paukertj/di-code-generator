@@ -1,7 +1,7 @@
 ﻿using Microsoft.CodeAnalysis;
 using System;
 
-namespace DiDemo.Generator.Generator.Models.Generating
+namespace DiCodeGenerator.Generator.Models.Generating
 {
     internal class TypeGeneratedCodeInstance
     {

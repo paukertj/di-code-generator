@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-	<RootNamespace>DiCodeGenerator.Tests</RootNamespace>
+	<RootNamespace>DiCodeGenerator.$(AssemblyName)</RootNamespace>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 

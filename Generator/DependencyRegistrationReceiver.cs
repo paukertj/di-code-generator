@@ -2,10 +2,10 @@
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Linq;
 using System.Collections.Generic;
-using DiDemo.Generator.Generator.Extensions;
-using DiDemo.Generator.Generator.Models.Analysis;
+using DiCodeGenerator.Generator.Extensions;
+using DiCodeGenerator.Generator.Models.Analysis;
 
-namespace DiDemo.Generator.Generator
+namespace DiCodeGenerator.Generator
 {
     internal class DependencyRegistrationReceiver : ISyntaxReceiver
     {

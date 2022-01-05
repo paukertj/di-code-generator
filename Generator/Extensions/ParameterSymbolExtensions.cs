@@ -1,7 +1,7 @@
-﻿using DiDemo.Generator.Generator.Models.Generating;
+﻿using DiCodeGenerator.Generator.Models.Generating;
 using Microsoft.CodeAnalysis;
 
-namespace DiDemo.Generator.Generator.Extensions
+namespace DiCodeGenerator.Generator.Extensions
 {
     internal static class ParameterSymbolExtensions
     {

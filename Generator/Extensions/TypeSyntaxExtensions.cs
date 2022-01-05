@@ -1,11 +1,11 @@
-﻿using DiDemo.Generator.Generator.Models.Analysis;
-using DiDemo.Generator.Generator.Models.Generating;
+﻿using DiCodeGenerator.Generator.Models.Analysis;
+using DiCodeGenerator.Generator.Models.Generating;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DiDemo.Generator.Generator.Extensions
+namespace DiCodeGenerator.Generator.Extensions
 {
     internal static class TypeSyntaxExtensions
     {

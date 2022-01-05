@@ -1,7 +1,7 @@
 ﻿using DiCodeGenerator.Tests.Services.Scopes;
 using DiCodeGenerator.Tests.Services.Singletons;
 using DiCodeGenerator.Tests.Services.Transients;
-using DiDemo.Generator.Primitives.Extensions;
+using DiCodeGenerator.Generator.Primitives.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 

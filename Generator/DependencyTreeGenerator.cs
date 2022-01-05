@@ -11,8 +11,6 @@ namespace DiDemo.Generator.Generator
     {
         public void Execute(GeneratorExecutionContext context)
         {
-            //Debugger.Launch();
-
             var syntaxReceiver = (DependencyRegistrationReceiver)context.SyntaxReceiver;
 
             var serviceRegistrationSources = new List<DependencyInjectionGeneratedCodeInstance>(syntaxReceiver.Services.Count);
@@ -58,7 +56,7 @@ namespace {mainMethod.ContainingNamespace.ToDisplayString()}
 
         public void Initialize(GeneratorInitializationContext context)
         {
-#if Debug_Generator
+#if DEBUG_GENERATOR
             Debugger.Launch();
 #endif
 

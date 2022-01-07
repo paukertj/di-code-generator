@@ -4,7 +4,7 @@ namespace DiDemo
 {
     internal static partial class GeneratedBuilder
     {
-        static partial void BuildGeneratedInternal(IServiceCollection serviceCollection);
+        private static partial void BuildGeneratedInternal(IServiceCollection serviceCollection);
 
         internal static IServiceCollection BuildGenerated(this IServiceCollection serviceCollection)
         {

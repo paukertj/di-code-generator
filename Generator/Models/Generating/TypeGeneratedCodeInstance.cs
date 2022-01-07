@@ -5,6 +5,7 @@ namespace DiDemo.Generator.Generator.Models.Generating
 {
     internal class TypeGeneratedCodeInstance
     {
+        internal string FullName { get; }
         internal string Namespace { get; }
         internal string TypeName { get; }
 
@@ -17,6 +18,8 @@ namespace DiDemo.Generator.Generator.Models.Generating
 
             Namespace = typeSymbol.ContainingNamespace.ToString();
             TypeName = typeSymbol.Name;
+
+            FullName = string.Join(".", Namespace, TypeName);
         }
 
         public override bool Equals(object obj)

@@ -47,14 +47,6 @@ namespace DiDemo.Generator.Generator.Extensions
             foreach (var parameter in constructor.Parameters)
             {
                 var reference = parameter.ToReferenceGeneratedCodeInstance();
-                //var r = services.SingleOrDefault(s => reference.Service.Equals(s.GetService().ToGeneratedCodeInstance(context)));
-
-                //if (r == null)
-                //{
-                //    continue;
-                //}
-
-                //reference.ServiceLifetime = r.ServiceLifetime;
 
                 result.Add(reference);
             }

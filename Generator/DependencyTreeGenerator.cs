@@ -5,6 +5,7 @@ using DiDemo.Generator.Generator.Models.Generating;
 using System.Linq;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using DiCodeGenerator.Generator.Generator.Exceptions;
+using System.Diagnostics;
 
 namespace DiDemo.Generator.Generator
 {
@@ -22,6 +23,12 @@ namespace DiDemo.Generator.Generator
             foreach (var service in syntaxReceiver.Services)
             {
                 var serviceRegistrationSource = service.ToGeneratedCodeInstance(context);
+
+                if (serviceRegistrationSources.Any(s => s.Service.FullName == serviceRegistrationSource.Service.FullName)) // Compelxity
+                {
+                    continue;
+                }
+
                 serviceRegistrationSources.Add(serviceRegistrationSource);
             }
 

@@ -7,7 +7,7 @@ This is my hobby project where I want to play with [Source Generators](https://d
 Simple example of compile-time [Microsoft DependencyInjection](https://docs.microsoft.com/en-us/dotnet/core/extensions/dependency-injection) service registration. This example contains a simple [Source Generator](https://docs.microsoft.com/en-us/dotnet/csharp/roslyn-sdk/source-generators-overview), that generates `ServiceDescriptor` for each service, that includes a service factory. The initial motivation was to measure performance impact of this change on building `ServiceProvider`.
 
 ## :innocent: TL; DR
-1. It seems to be faster :thumbsup: 
+1. Generated code seems to be faster :thumbsup: 
 2. `git clone`
 3. Demo project is `DiDemo`, if this project has compiled and runs without crash, everything works
 4. Benchmark project is `Benchmarks`, run in `Release`, uses [BenchmarkDotNet :snail:](https://benchmarkdotnet.org/)
@@ -158,49 +158,49 @@ public class ServiceCollectionBuild
     }
 }
 ```
-Here you can see extension methods implementation. Instead of `SERVICE` the `Transient`, `Scope` or `Singleton` has been used.
+Here you can see extensions methods implementation. Instead of `SERVICE` the `Transient`, `Scope` or `Singleton` has been used.
 ```csharp
 internal static class SERVICEs
 {
-	internal static void GetAllSERVICEs(this IServiceProvider serviceProvider)
-	{
-		if (serviceProvider == null)
-		{
-			throw new ArgumentNullException(nameof(serviceProvider));
-		}
+    internal static void GetAllSERVICEs(this IServiceProvider serviceProvider)
+    {
+        if (serviceProvider == null)
+        {
+            throw new ArgumentNullException(nameof(serviceProvider));
+        }
 
-		serviceProvider.GetRequiredService<ISERVICE0>();
-		// ...
-		serviceProvider.GetRequiredService<ISERVICE999>();
-	}
+        serviceProvider.GetRequiredService<ISERVICE0>();
+        // ...
+        serviceProvider.GetRequiredService<ISERVICE999>();
+    }
 
-	internal static IServiceCollection AddSERVICEsGenerated(this IServiceCollection serviceCollection)
-	{
-		if (serviceCollection == null)
-		{
-			throw new ArgumentNullException(nameof(serviceCollection));
-		}
+    internal static IServiceCollection AddSERVICEsGenerated(this IServiceCollection serviceCollection)
+    {
+        if (serviceCollection == null)
+        {
+            throw new ArgumentNullException(nameof(serviceCollection));
+        }
 
-		serviceCollection.AddGeneratedSERVICE<ISERVICE0, SERVICE0>();
-		// ...
-		serviceCollection.AddGeneratedSERVICE<ISERVICE999, SERVICE999>();
+        serviceCollection.AddGeneratedSERVICE<ISERVICE0, SERVICE0>();
+        // ...
+        serviceCollection.AddGeneratedSERVICE<ISERVICE999, SERVICE999>();
 
-		return serviceCollection;
-	}
+        return serviceCollection;
+    }
 
-	internal static IServiceCollection AddSERVICEs(this IServiceCollection serviceCollection)
-	{
-		if (serviceCollection == null)
-		{
-			throw new ArgumentNullException(nameof(serviceCollection));
-		}
+    internal static IServiceCollection AddSERVICEs(this IServiceCollection serviceCollection)
+    {
+        if (serviceCollection == null)
+        {
+            throw new ArgumentNullException(nameof(serviceCollection));
+        }
 
-		serviceCollection.AddSERVICE<ISERVICE0, SERVICE0>();
-		// ..
-		serviceCollection.AddSERVICE<ISERVICE999, SERVICE999>();
+        serviceCollection.AddSERVICE<ISERVICE0, SERVICE0>();
+        // ..
+        serviceCollection.AddSERVICE<ISERVICE999, SERVICE999>();
 
-		return serviceCollection;
-	}
+        return serviceCollection;
+    }
 }
 ```
 

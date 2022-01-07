@@ -3,7 +3,7 @@
   <PropertyGroup>
 	  <TargetFramework>netstandard2.0</TargetFramework>
 	  <LangVersion>9.0</LangVersion>
-    <RootNamespace>DiDemo.Generator.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+    <RootNamespace>DiCodeGenerator.Generator.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

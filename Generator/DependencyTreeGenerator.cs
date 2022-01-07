@@ -2,13 +2,17 @@
 using Microsoft.CodeAnalysis;
 using System.Collections.Generic;
 using DiDemo.Generator.Generator.Models.Generating;
-using System.Diagnostics;
+using System.Linq;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using DiCodeGenerator.Generator.Generator.Exceptions;
 
 namespace DiDemo.Generator.Generator
 {
     [Generator]
     internal class DependencyTreeGenerator : ISourceGenerator
     {
+        private const string EntryMethod = "BuildGeneratedInternal";
+
         public void Execute(GeneratorExecutionContext context)
         {
             var syntaxReceiver = (DependencyRegistrationReceiver)context.SyntaxReceiver;
@@ -21,8 +25,25 @@ namespace DiDemo.Generator.Generator
                 serviceRegistrationSources.Add(serviceRegistrationSource);
             }
 
-            // Find the main method
-            var mainMethod = context.Compilation.GetEntryPoint(context.CancellationToken);
+            var entryMethod = context.Compilation.SyntaxTrees
+                .SelectMany(st => st
+                    .GetRoot()
+                    .DescendantNodes()
+                    .OfType<MethodDeclarationSyntax>())
+                .SingleOrDefault(md => md.Identifier.ValueText == EntryMethod);
+
+            if (entryMethod == null)
+            {
+                throw new DiCodeGeneratorException($"Unable to find entry method '{EntryMethod}'!");
+            }
+
+            var mainNamespaceDeclaration = entryMethod.Parent?.Parent as NamespaceDeclarationSyntax;
+            string mainNamespace = mainNamespaceDeclaration?.Name?.ToString();
+
+            if (string.IsNullOrEmpty(mainNamespace))
+            {
+                throw new DiCodeGeneratorException($"Unable to find entry method '{EntryMethod}' namespace!");
+            }
 
             var namespaces = serviceRegistrationSources
                 .GetSourceCodeForNamespaces()
@@ -36,7 +57,7 @@ using System;
 using Microsoft.Extensions.DependencyInjection;
 {namespaces}
 
-namespace {mainMethod.ContainingNamespace.ToDisplayString()}
+namespace {mainNamespace}
 {{
     /// <summary>
     /// Automatically generated

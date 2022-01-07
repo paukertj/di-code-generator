@@ -13,8 +13,6 @@ namespace DiDemo.Generator.Generator
 
         public void OnVisitSyntaxNode(SyntaxNode syntaxNode)
         {
-            //Debugger.Launch();
-
             FindServices(syntaxNode);
         }
 

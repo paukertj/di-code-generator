@@ -66,10 +66,10 @@ This solution has obvious disadvantage - we must resolve each dependency between
 ## :bulb: How to use DI Code Generator
 In my playground I developed a simple generator, that generates dependencies in `ServiceDescriptor` factory. Bellow I'll try to explain, how this generator could be used. The first step that you need to do is to add reference to `Generator` (generator itself) and `Primitives` (methods, that will be actually part of compiled code). So open csproj in target project and add something like this:
 ```xml
-  <ItemGroup>
+<ItemGroup>
     <ProjectReference Include="..\Generator\Generator.csproj" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />
     <ProjectReference Include="..\Primitives\Primitives.csproj" />
-  </ItemGroup>
+</ItemGroup>
 ```
 If we don't have (and do not want to have) `Debug_Generator` configuration in our solution, we can remove the debug part from generator:
 ```csharp
@@ -89,7 +89,7 @@ Now, we need to create a partial class, that we will use as placeholder for gene
 ```csharp
 internal static partial class GeneratedBuilder
 {
-    private static partial void BuildGeneratedInternal(IServiceCollection serviceCollection);
+    static partial void BuildGeneratedInternal(IServiceCollection serviceCollection);
 
     internal static IServiceCollection BuildGenerated(this IServiceCollection serviceCollection)
     {

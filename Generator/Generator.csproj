@@ -1,6 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+	<IncludeBuildOutput>False</IncludeBuildOutput>
+	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+  </PropertyGroup>
+	
+  <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
 	<LangVersion>9.0</LangVersion>
 	<RootNamespace>DiCodeGenerator.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
@@ -9,7 +14,9 @@
 	<PackageId>DiCodeGenerator.$(AssemblyName)</PackageId>
 	<PackageProjectUrl>https://github.com/paukertj/di-code-generator</PackageProjectUrl>
 	<PackageReadmeFile>README.md</PackageReadmeFile>
+	<Description>Code Generator for dependency injection mapping</Description>
 	<RepositoryUrl>https://github.com/paukertj/di-code-generator</RepositoryUrl>
+	<NoPackageAnalysis>True</NoPackageAnalysis>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,12 +27,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.0.1" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.0.1" PrivateAssets="all" />
+	<PackageReference Update="NETStandard.Library" PrivateAssets="all" />
     <PackageReference Include="System.Collections" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Primitives\Primitives.csproj" />
   </ItemGroup>
-
+	
+  <ItemGroup>
+	<None Update="tools\*.ps1" CopyToOutputDirectory="Always" Pack="true" PackagePath="tools" />
+	<None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+  </ItemGroup>
 </Project>

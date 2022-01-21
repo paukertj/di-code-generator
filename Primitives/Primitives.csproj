@@ -1,14 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-	  <TargetFramework>netstandard2.0</TargetFramework>
-	  <LangVersion>9.0</LangVersion>
+	<TargetFramework>netstandard2.0</TargetFramework>
+	<LangVersion>9.0</LangVersion>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <RootNamespace>DiCodeGenerator.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
     <PackageId>DiCodeGenerator.$(AssemblyName)</PackageId>
     <PackageProjectUrl>https://github.com/paukertj/di-code-generator</PackageProjectUrl>
     <RepositoryUrl>https://github.com/paukertj/di-code-generator</RepositoryUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+	<Description>Primitives for DiCodeGenerator.Generator</Description>
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,6 +1,10 @@
 name: Continuous Integration
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
+      - develop
 
 jobs:
   build:
@@ -28,7 +32,7 @@ jobs:
         uses: gittools/actions/gitversion/execute@v0.9.7
         with:
           useConfigFile: true
-          configFilePath: ./.github/gitversion.yml  
+          configFilePath: ./.github/gitversion.yml
 
       - name: Display dotnet version
         run: dotnet --version
@@ -37,13 +41,13 @@ jobs:
         run: dotnet restore
 
       - name: Build
-        run: dotnet build --configuration release /p:Version=${{ steps.gitversion.outputs.AssemblySemVer }} /p:AssemblyVersion=${{ steps.gitversion.outputs.AssemblySemVer }} /p:InformationalVersion=${{ steps.gitversion.outputs.InformationalVersion }} --no-restore
+        run: dotnet build --configuration release /p:Version=${{ steps.gitversion.outputs.NuGetVersionV2 }} /p:AssemblyVersion=${{ steps.gitversion.outputs.AssemblySemVer }} /p:InformationalVersion=${{ steps.gitversion.outputs.InformationalVersion }} --no-restore
       
-      #- name: Push generated package 'Genarator' to GitHub registry
-      #  run: dotnet nuget push ./Generator/bin/Release/*.nupkg  --source "https://nuget.pkg.github.com/paukertj/index.json" --api-key ${{ secrets.GITHUB_TOKEN }}
+      - name: Push generated package 'Genarator' to GitHub registry
+        run: dotnet nuget push ./Generator/bin/Release/*.nupkg  --source "https://nuget.pkg.github.com/paukertj/index.json" --api-key ${{ secrets.GITHUB_TOKEN }}
 
-      #- name: Push generated package 'Primitives' to GitHub registry
-      #  run: dotnet nuget push ./Primitives/bin/Release/*.nupkg  --source "https://nuget.pkg.github.com/paukertj/index.json" --api-key ${{ secrets.GITHUB_TOKEN }}
+      - name: Push generated package 'Primitives' to GitHub registry
+        run: dotnet nuget push ./Primitives/bin/Release/*.nupkg  --source "https://nuget.pkg.github.com/paukertj/index.json" --api-key ${{ secrets.GITHUB_TOKEN }}
 
       #- name: Push generated package 'Genarator' to nuget.org registry
       #  run: dotnet nuget push ./Generator/bin/Release/*.nupkg --source "https://api.nuget.org/v3/index.json" --api-key ${{ secrets.NUGET_API_KEY }}

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace DiDemo
+namespace DiCodeGenerator.DiDemo
 {
     internal static partial class GeneratedBuilder
     {

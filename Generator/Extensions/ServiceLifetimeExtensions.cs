@@ -1,7 +1,7 @@
-﻿using DiDemo.Generator.Generator.Enums;
-using DiDemo.Generator.Primitives.Extensions;
+﻿using DiCodeGenerator.Generator.Enums;
+using DiCodeGenerator.Generator.Primitives.Extensions;
 
-namespace DiDemo.Generator.Generator.Extensions
+namespace DiCodeGenerator.Generator.Extensions
 {
     internal static class ServiceLifetimeExtensions
     {

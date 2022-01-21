@@ -1,12 +1,12 @@
 ﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Collections.Generic;
 using System.Linq;
-using DiDemo.Generator.Generator.Enums;
+using DiCodeGenerator.Generator.Enums;
 using Microsoft.CodeAnalysis;
-using DiDemo.Generator.Generator.Models.Analysis;
-using DiDemo.Generator.Generator.Models.Generating;
+using DiCodeGenerator.Generator.Models.Analysis;
+using DiCodeGenerator.Generator.Models.Generating;
 
-namespace DiDemo.Generator.Generator.Extensions
+namespace DiCodeGenerator.Generator.Extensions
 {
     internal static class DependencyInjectionInstanceExtensions
     {

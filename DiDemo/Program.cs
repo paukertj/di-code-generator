@@ -1,11 +1,11 @@
-﻿using DiDemo.Generator.Primitives.Extensions;
+﻿using DiCodeGenerator.Generator.Primitives.Extensions;
 using DiDemo.Types.Scoped;
 using DiDemo.Types.Singleton;
 using DiDemo.Types.Transient;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 
-namespace DiDemo
+namespace DiCodeGenerator.DiDemo
 {
     public class Program
     {

@@ -1,13 +1,13 @@
-﻿using DiDemo.Generator.Generator.Extensions;
+﻿using DiCodeGenerator.Generator.Extensions;
 using Microsoft.CodeAnalysis;
 using System.Collections.Generic;
-using DiDemo.Generator.Generator.Models.Generating;
+using DiCodeGenerator.Generator.Models.Generating;
 using System.Linq;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using DiCodeGenerator.Generator.Generator.Exceptions;
+using DiCodeGenerator.Generator.Exceptions;
 using System.Diagnostics;
 
-namespace DiDemo.Generator.Generator
+namespace DiCodeGenerator.Generator
 {
     [Generator]
     internal class DependencyTreeGenerator : ISourceGenerator

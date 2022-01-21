@@ -1,7 +1,7 @@
-﻿using DiDemo.Generator.Generator.Enums;
+﻿using DiCodeGenerator.Generator.Enums;
 using System.Collections.Generic;
 
-namespace DiDemo.Generator.Generator.Models.Generating
+namespace DiCodeGenerator.Generator.Models.Generating
 {
     internal class ReferenceGeneratedCodeInstance
     {

@@ -1,4 +1,4 @@
-﻿namespace DiDemo.Generator.Generator.Enums
+﻿namespace DiCodeGenerator.Generator.Enums
 {
     internal enum ServiceLifetime
     {

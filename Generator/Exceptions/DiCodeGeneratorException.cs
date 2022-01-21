@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DiCodeGenerator.Generator.Generator.Exceptions
+namespace DiCodeGenerator.Generator.Exceptions
 {
     public class DiCodeGeneratorException : Exception
     {

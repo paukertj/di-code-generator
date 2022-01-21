@@ -49,8 +49,8 @@ jobs:
       - name: Push generated package 'Primitives' to GitHub registry
         run: dotnet nuget push ./Primitives/bin/Release/*.nupkg  --source "https://nuget.pkg.github.com/paukertj/index.json" --api-key ${{ secrets.GITHUB_TOKEN }}
 
-      #- name: Push generated package 'Genarator' to nuget.org registry
-      #  run: dotnet nuget push ./Generator/bin/Release/*.nupkg --source "https://api.nuget.org/v3/index.json" --api-key ${{ secrets.NUGET_API_KEY }}
+      - name: Push generated package 'Genarator' to nuget.org registry
+        run: dotnet nuget push ./Generator/bin/Release/*.nupkg --source "https://api.nuget.org/v3/index.json" --api-key ${{ secrets.NUGET_API_KEY }}
 
-      #- name: Push generated package 'Primitives' to nuget.org registry
-      #  run: dotnet nuget push ./Primitives/bin/Release/*.nupkg --source "https://api.nuget.org/v3/index.json" --api-key ${{ secrets.NUGET_API_KEY }}
+      - name: Push generated package 'Primitives' to nuget.org registry
+        run: dotnet nuget push ./Primitives/bin/Release/*.nupkg --source "https://api.nuget.org/v3/index.json" --api-key ${{ secrets.NUGET_API_KEY }}

@@ -10,7 +10,7 @@ using System.Diagnostics;
 namespace DiCodeGenerator.Generator
 {
     [Generator]
-    internal class DependencyTreeGenerator : ISourceGenerator
+    public class DependencyTreeGenerator : ISourceGenerator // TODO: Internal
     {
         private const string EntryMethod = "BuildGeneratedInternal";
 
@@ -71,7 +71,7 @@ namespace {mainNamespace}
     /// </summary>
     internal static partial class GeneratedBuilder
     {{
-        private static partial void BuildGeneratedInternal(IServiceCollection serviceCollection)
+        internal static partial void BuildGeneratedInternal(IServiceCollection serviceCollection)
         {{
 {maps}
         }}

@@ -67,6 +67,23 @@ private static void AddServices(ServiceCollection sc)
         .AddGeneratedScoped<IScoped, Scoped>()
         .AddGeneratedSingleton<ISingleton, Singleton>();
 }",
+                        @"
+public static ServiceProvider Main()
+{
+    var provider = BuildServiceProvider();
+
+    return provider;
+}
+
+private static ServiceProvider BuildServiceProvider()
+{
+    return new ServiceCollection()
+        .AddGeneratedTransient<ITransient, Transient>()
+        .AddGeneratedScoped<IScoped, Scoped>()
+        .AddGeneratedSingleton<ISingleton, Singleton>()
+        .BuildGenerated()
+        .BuildServiceProvider();
+}",
         };
     }
 }

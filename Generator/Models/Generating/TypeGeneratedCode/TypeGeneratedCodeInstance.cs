@@ -1,13 +1,13 @@
 ﻿using Microsoft.CodeAnalysis;
 using System;
 
-namespace DiCodeGenerator.Generator.Models.Generating
+namespace DiCodeGenerator.Generator.Models.Generating.TypeGeneratedCode
 {
-    internal class TypeGeneratedCodeInstance
+    internal class TypeGeneratedCodeInstance : ITypeGeneratedCodeInstance
     {
-        internal string FullName { get; }
-        internal string Namespace { get; }
-        internal string TypeName { get; }
+        public string FullName { get; }
+        public string Namespace { get; }
+        public string TypeName { get; }
 
         internal TypeGeneratedCodeInstance(ITypeSymbol typeSymbol)
         {

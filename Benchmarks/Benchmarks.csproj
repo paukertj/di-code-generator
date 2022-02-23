@@ -3,7 +3,8 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
-	<RootNamespace>DiCodeGenerator.$(AssemblyName)</RootNamespace>
+    <RootNamespace>DiCodeGenerator.$(MSBuildProjectName)</RootNamespace>
+    <AssemblyName>DiCodeGenerator.$(MSBuildProjectName)</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

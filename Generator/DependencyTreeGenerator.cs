@@ -1,83 +1,20 @@
-﻿using DiCodeGenerator.Generator.Extensions;
-using Microsoft.CodeAnalysis;
-using System.Collections.Generic;
-using DiCodeGenerator.Generator.Models.Generating;
-using System.Linq;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using DiCodeGenerator.Generator.Exceptions;
+﻿using Microsoft.CodeAnalysis;
+using DiCodeGenerator.Generator.Services.SourceCodeGenerator;
+using DiCodeGenerator.Generator.Receivers.DependencyRegistration;
 using System.Diagnostics;
 
 namespace DiCodeGenerator.Generator
 {
     [Generator]
-    public class DependencyTreeGenerator : ISourceGenerator // TODO: Internal
+    public class DependencyTreeGenerator : ISourceGenerator
     {
-        private const string EntryMethod = "BuildGeneratedInternal";
+        private const string EntryMethodName = "BuildGeneratedInternal";
 
         public void Execute(GeneratorExecutionContext context)
         {
-            var syntaxReceiver = (DependencyRegistrationReceiver)context.SyntaxReceiver;
+            var sourceCodeGeneratorService = new SourceCodeGeneratorService(context);
 
-            var serviceRegistrationSources = new List<DependencyInjectionGeneratedCodeInstance>(syntaxReceiver.Services.Count);
-
-            foreach (var service in syntaxReceiver.Services)
-            {
-                var serviceRegistrationSource = service.ToGeneratedCodeInstance(context);
-
-                if (serviceRegistrationSources.Any(s => s.Service.FullName == serviceRegistrationSource.Service.FullName)) // Compelxity
-                {
-                    continue;
-                }
-
-                serviceRegistrationSources.Add(serviceRegistrationSource);
-            }
-
-            var entryMethod = context.Compilation.SyntaxTrees
-                .SelectMany(st => st
-                    .GetRoot()
-                    .DescendantNodes()
-                    .OfType<MethodDeclarationSyntax>())
-                .SingleOrDefault(md => md.Identifier.ValueText == EntryMethod);
-
-            if (entryMethod == null)
-            {
-                throw new DiCodeGeneratorException($"Unable to find entry method '{EntryMethod}'!");
-            }
-
-            var mainNamespaceDeclaration = entryMethod.Parent?.Parent as NamespaceDeclarationSyntax;
-            string mainNamespace = mainNamespaceDeclaration?.Name?.ToString();
-
-            if (string.IsNullOrEmpty(mainNamespace))
-            {
-                throw new DiCodeGeneratorException($"Unable to find entry method '{EntryMethod}' namespace!");
-            }
-
-            var namespaces = serviceRegistrationSources
-                .GetSourceCodeForNamespaces()
-                .ForceTrim();
-            var maps = serviceRegistrationSources
-                .GetSourceCodeForMaps()
-                .Tab(3);
-
-            string source = $@"
-using System;
-using Microsoft.Extensions.DependencyInjection;
-{namespaces}
-
-namespace {mainNamespace}
-{{
-    /// <summary>
-    /// Automatically generated
-    /// </summary>
-    internal static partial class GeneratedBuilder
-    {{
-        internal static partial void BuildGeneratedInternal(IServiceCollection serviceCollection)
-        {{
-{maps}
-        }}
-    }}
-}}
-".ForceTrim();
+            var source = sourceCodeGeneratorService.GenerateSourceCode(EntryMethodName);
 
             context.AddSource($"GeneratedBuilder_Generated.cs", source);
         }

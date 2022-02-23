@@ -3,21 +3,9 @@
   <PropertyGroup>
 	<TargetFramework>netstandard2.0</TargetFramework>
 	<LangVersion>9.0</LangVersion>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <RootNamespace>DiCodeGenerator.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
-    <PackageId>DiCodeGenerator.$(AssemblyName)</PackageId>
-    <PackageProjectUrl>https://github.com/paukertj/di-code-generator</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/paukertj/di-code-generator</RepositoryUrl>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-	<Description>Primitives for DiCodeGenerator.Generator</Description>
+    <RootNamespace>DiCodeGenerator.$(MSBuildProjectName)</RootNamespace>
+    <AssemblyName>DiCodeGenerator.$(MSBuildProjectName)</AssemblyName>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Include="..\README.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />

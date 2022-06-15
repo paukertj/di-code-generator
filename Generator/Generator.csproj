@@ -8,7 +8,8 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
 	<LangVersion>9.0</LangVersion>
-	<RootNamespace>DiCodeGenerator.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+    <RootNamespace>DiCodeGenerator.$(MSBuildProjectName)</RootNamespace>
+    <AssemblyName>DiCodeGenerator.$(MSBuildProjectName)</AssemblyName>
 	<Configurations>Debug;Debug_Generator;Release</Configurations>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	<PackageId>DiCodeGenerator.$(AssemblyName)</PackageId>
@@ -39,5 +40,9 @@
   <ItemGroup>
 	<None Update="tools\*.ps1" CopyToOutputDirectory="Always" Pack="true" PackagePath="tools" />
 	<None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+  </ItemGroup>
+	
+  <ItemGroup>
+    <InternalsVisibleTo Include="DiCodeGenerator.Generator.Services.Tests" />
   </ItemGroup>
 </Project>

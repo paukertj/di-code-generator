@@ -1,30 +1,32 @@
 ﻿using DiCodeGenerator.Generator.Enums;
 using DiCodeGenerator.Generator.Extensions;
+using DiCodeGenerator.Generator.Models.Generating.ReferenceGeneratedCode;
+using DiCodeGenerator.Generator.Models.Generating.TypeGeneratedCode;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DiCodeGenerator.Generator.Models.Generating
+namespace DiCodeGenerator.Generator.Models.Generating.DependencyInjectionGeneratedCode
 {
-    internal class DependencyInjectionGeneratedCodeInstance
+    internal class DependencyInjectionGeneratedCodeInstance : IDependencyInjectionGeneratedCodeInstance
     {
-        internal TypeGeneratedCodeInstance Service { get; }
-        internal TypeGeneratedCodeInstance Implementation { get; }
-        internal ServiceLifetime ServiceLifetime { get; }
+        public ITypeGeneratedCodeInstance Service { get; }
+        public ITypeGeneratedCodeInstance Implementation { get; }
+        public ServiceLifetime ServiceLifetime { get; }
 
-        internal IReadOnlyList<ReferenceGeneratedCodeInstance> References { get; }
+        public IReadOnlyList<IReferenceGeneratedCodeInstance> References { get; }
 
         internal DependencyInjectionGeneratedCodeInstance(
-            TypeGeneratedCodeInstance service,
-            TypeGeneratedCodeInstance implementation,
+            ITypeGeneratedCodeInstance service,
+            ITypeGeneratedCodeInstance implementation,
             ServiceLifetime serviceLifetime) : this(service, implementation, serviceLifetime, null)
         {
         }
 
         internal DependencyInjectionGeneratedCodeInstance(
-            TypeGeneratedCodeInstance service,
-            TypeGeneratedCodeInstance implementation,
+            ITypeGeneratedCodeInstance service,
+            ITypeGeneratedCodeInstance implementation,
             ServiceLifetime serviceLifetime,
-            IReadOnlyList<ReferenceGeneratedCodeInstance> references)
+            IReadOnlyList<IReferenceGeneratedCodeInstance> references)
         {
             Service = service;
             Implementation = implementation;
@@ -32,17 +34,17 @@ namespace DiCodeGenerator.Generator.Models.Generating
             References = references;
         }
 
-        internal TypeGeneratedCodeInstance GetService()
+        public ITypeGeneratedCodeInstance GetService()
         {
             return Service ?? Implementation;
         }
 
-        internal TypeGeneratedCodeInstance GetImplementation()
+        public ITypeGeneratedCodeInstance GetImplementation()
         {
             return Implementation ?? Service;
         }
 
-        internal IEnumerable<string> GetAllNamespaces()
+        public IEnumerable<string> GetAllNamespaces()
         {
             var namespaces = new List<string>();
 
@@ -59,16 +61,6 @@ namespace DiCodeGenerator.Generator.Models.Generating
 
             return namespaces
                 .Distinct();
-        }
-
-        internal string ToSourceCode()
-        {
-            var service = GetService();
-            var implementation = GetImplementation();
-
-            string parameters = References?.ToSourceCode();
-
-            return $"serviceCollection.Add(new ServiceDescriptor(typeof({service.TypeName}), (p) => new {implementation.TypeName}({parameters}), ServiceLifetime.{ServiceLifetime}));";
         }
     }
 }

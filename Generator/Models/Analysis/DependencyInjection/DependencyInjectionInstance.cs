@@ -1,14 +1,14 @@
 ﻿using DiCodeGenerator.Generator.Enums;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-namespace DiCodeGenerator.Generator.Models.Analysis
+namespace DiCodeGenerator.Generator.Models.Analysis.DependencyInjection
 {
-    internal class DependencyInjectionInstance
+    public class DependencyInjectionInstance : IDependencyInjectionInstance
     {
-        internal TypeSyntax Implementation { get; }
-        internal TypeSyntax Service { get; }
-        internal ServiceLifetime ServiceLifetime { get; }
-        internal MemberAccessExpressionSyntax MemberAccessExpressionSyntax { get; }
+        public TypeSyntax Implementation { get; }
+        public TypeSyntax Service { get; }
+        public ServiceLifetime ServiceLifetime { get; }
+        public MemberAccessExpressionSyntax MemberAccessExpressionSyntax { get; }
 
         internal DependencyInjectionInstance(TypeSyntax implementation, TypeSyntax service, ServiceLifetime serviceLifetime, MemberAccessExpressionSyntax memberAccessExpressionSyntax)
         {
@@ -18,7 +18,7 @@ namespace DiCodeGenerator.Generator.Models.Analysis
             MemberAccessExpressionSyntax = memberAccessExpressionSyntax;
         }
 
-        internal TypeSyntax GetService()
+        public TypeSyntax GetService()
         {
             return Service ?? Implementation;
         }

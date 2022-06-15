@@ -9,11 +9,6 @@ namespace Generator.Tests
 {
     public partial class BasicServicesTest : BaseTest
     {
-        [SetUp]
-        public void Setup()
-        {
-        }
-
         [Test]
         [TestCaseSource(nameof(TestCases))]
         public void SingletonScopedTransient(string sourceBlock)

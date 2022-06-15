@@ -8,7 +8,7 @@ Simple example of compile-time [Microsoft DependencyInjection](https://docs.micr
 
 ## :innocent: TL; DR
 1. Generated code seems to be faster :thumbsup: 
-2. `git clone`
+2. Use [nuget :package:](https://www.nuget.org/packages/DiCodeGenerator.Generator) or `git clone`
 3. Demo project is `DiDemo`, if this project has compiled and runs without crash, everything works
 4. Benchmark project is `Benchmarks`, run in `Release`, uses [BenchmarkDotNet :snail:](https://benchmarkdotnet.org/)
 5. For debugging of generators, switch to `Debug_Generator` configuration and build

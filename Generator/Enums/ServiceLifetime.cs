@@ -1,6 +1,6 @@
-﻿namespace DiDemo.Generator.Generator.Enums
+﻿namespace DiCodeGenerator.Generator.Enums
 {
-    internal enum ServiceLifetime
+    public enum ServiceLifetime
     {
         Singleton = 0,
         Scoped = 1,

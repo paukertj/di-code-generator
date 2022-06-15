@@ -1,4 +1,4 @@
-﻿using DiDemo.Generator.Primitives.Extensions;
+﻿using DiCodeGenerator.Generator.Primitives.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 

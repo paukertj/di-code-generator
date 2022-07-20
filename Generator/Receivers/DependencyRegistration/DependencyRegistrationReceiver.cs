@@ -3,7 +3,6 @@ using DiCodeGenerator.Generator.Models.Analysis.DependencyInjection;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace DiCodeGenerator.Generator.Receivers.DependencyRegistration
 {
@@ -12,7 +11,7 @@ namespace DiCodeGenerator.Generator.Receivers.DependencyRegistration
         public IReadOnlyList<IDependencyInjectionInstance> Services => _services;
 
         private List<IDependencyInjectionInstance> _services { get; } = new();
-        private HashSet<string> _alreadyGeneratedServices = new HashSet<string>();
+        private HashSet<string> _alreadyProcessedMethods = new HashSet<string>();
 
         public void OnVisitSyntaxNode(SyntaxNode syntaxNode)
         {
@@ -21,41 +20,34 @@ namespace DiCodeGenerator.Generator.Receivers.DependencyRegistration
 
         private void FindServices(SyntaxNode syntaxNode)
         {
-            if (syntaxNode is not MethodDeclarationSyntax)
+            if (syntaxNode is not InvocationExpressionSyntax methodCall)
             {
                 return;
             }
 
-            var methodCalls = syntaxNode
-                .DescendantNodes()
-                .OfType<InvocationExpressionSyntax>();
-
-            foreach (var methodCall in methodCalls)
+            if (methodCall.Expression is not MemberAccessExpressionSyntax memberAccessExpressionSyntax)
             {
-                if (methodCall.Expression is not MemberAccessExpressionSyntax memberAccessExpressionSyntax)
-                {
-                    continue;
-                }
-
-                string method = memberAccessExpressionSyntax.Name?.Identifier.ValueText;
-
-                if (string.IsNullOrWhiteSpace(method))
-                {
-                    continue;
-                }
-
-                if (_alreadyGeneratedServices.Contains(method))
-                {
-                    continue;
-                }
-
-                _alreadyGeneratedServices.Add(method);
-
-                if (method.TryConvertToServiceLifetime(out var serviceLifetime))
-                {
-                    _services.AddNewService(memberAccessExpressionSyntax, serviceLifetime);
-                }
+                return;
             }
+
+            string method = memberAccessExpressionSyntax.Name?.Identifier.ValueText;
+
+            if (string.IsNullOrWhiteSpace(method))
+            {
+                return;
+            }
+
+            if (_alreadyProcessedMethods.Contains(method))
+            {
+                return;
+            }
+
+            if (method.TryConvertToServiceLifetime(out var serviceLifetime))
+            {
+                _services.AddNewService(memberAccessExpressionSyntax, serviceLifetime);
+            }
+
+            _alreadyProcessedMethods.Add(method);
         }
     }
 }

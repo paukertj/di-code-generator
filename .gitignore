@@ -12,18 +12,13 @@
 
 # Build results
 [Dd]ebug/
-[Dd]ebug6040/
-[Dd]ebugSPX/
-[Dd]ebugPublic/
+[Dd]ebug_Generator/
 [Rr]elease/
-[Rr]elease6040/
-[Rr]eleaseSPX/
-[Rr]eleases/
+[Rr]elease_Generator/
 [Xx]64/
 [Xx]86/
 [Bb]uild/
 bld/
-WebPlanning*/[Bb]in/
 [Oo]bj/
 
 # Visual Studio 2015 cache/options directory
@@ -38,16 +33,6 @@ WebPlanning*/[Bb]in/
 # NUNIT
 *.VisualState.xml
 TestResult.xml
-
-# Build Results of an ATL Project
-[Dd]ebugPS/
-[Rr]eleasePS/
-dlldata.c
-
-# DNX
-project.lock.json
-artifacts/
-
 *_i.c
 *_p.c
 *_i.h
@@ -126,16 +111,6 @@ AutoTest.Net/
 
 # Installshield output folder
 [Ee]xpress/
-
-# DocProject is a documentation generator add-in
-DocProject/buildhelp/
-DocProject/Help/*.HxT
-DocProject/Help/*.HxC
-DocProject/Help/*.hhc
-DocProject/Help/*.hhk
-DocProject/Help/*.hhp
-DocProject/Help/Html2
-DocProject/Help/html
 
 # Click-Once directory
 publish/
@@ -248,5 +223,3 @@ ModelManifest.xml
 
 # JetBrains Rider
 /.idea
-
-**/wwwroot/public/logo.*
